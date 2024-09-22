@@ -34,7 +34,7 @@ export default function Login() {
       try {
         const res = await axios.post("http://localhost:3000/signin", {email, password});
         localStorage.setItem('token', res.data.token);
-        alert("login successful");
+        localStorage.setItem('name', res.data.name);
         navigate("/dashboard");
       } catch (error) {
         alert("login failed");

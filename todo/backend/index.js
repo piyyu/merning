@@ -76,7 +76,8 @@ app.post("/signin", async (req, res) => {
 
     res.json({
       msg: "User logged in successfully",
-      token: token
+      token: token,
+      name: response.name
     })
   } else {
     res.status(403).json({
@@ -89,7 +90,7 @@ function authMiddleware(req, res, next) {
   const token = req.headers.token;
   const decoded = jwt.verify(token, secretKey);
   if (decoded) {
-    req.userId = decoded.userId;
+    req.userId = decoded.id;
     next();
   } else {
     res.status(403).json({
@@ -133,6 +134,24 @@ app.get("/todos", authMiddleware, async (req, res) => {
   res.json({
     msg: "todos fetched successfully",
     todos: todos
+  })
+})
+
+app.put("/todo/done", authMiddleware, async (req, res) => {
+  const todoId = req.body.todoId;
+
+  await TodoModel.updateOne({_id: todoId}, {done: true});
+  res.json({
+    msg: "todo marked as done"
+  })
+})
+
+app.delete("/todo/delete/:todoId", authMiddleware, async (req, res) => {
+  const todoId = req.params.todoId;
+
+  await TodoModel.findByIdAndDelete(todoId);
+  res.json({
+    msg: "todo deleted"
   })
 })
 

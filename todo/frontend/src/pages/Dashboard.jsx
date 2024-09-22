@@ -1,11 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CreateTodo from "../components/CreateTodo";
+import Todos from "../components/Todos";
 
 export default function Dashboard() {
     const navigate = useNavigate();
+    const [name, setName] = useState("");
+    const [todos, setTodos] = useState([]);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
+        setName(localStorage.getItem('name'));
+
         if (!token) {
             navigate("/");
         }
@@ -13,6 +19,7 @@ export default function Dashboard() {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('name');
         navigate("/");
     };
 
@@ -26,20 +33,14 @@ export default function Dashboard() {
                 </button>
             </div>
             <div className="flex flex-col items-center justify-center flex-grow p-6">
-                <div className="flex flex-col w-full max-w-lg p-6 bg-white shadow-lg rounded-lg gap-4 dark:bg-gray-800 dark:shadow-gray-700">
+                <div className="flex items-center flex-col w-full max-w-5xl p-6 bg-white shadow-lg rounded-lg gap-4 dark:bg-gray-800 dark:shadow-gray-700">
                     <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white">Dashboard</h1>
-                    <p className="text-center text-gray-600 dark:text-gray-400">
-                        Welcome to your dashboard! Here you can manage your tasks and view your progress.
+                    <p className="text-center text-gray-600 dark:text-gray-400 text-lg">
+                        Welcome <span className="text-purple-600 font-bold text-lg">{name}</span> ! Here you can manage your tasks and view your progress.
                     </p>
-                    
-                    {/* Action Buttons (Optional) */}
-                    <div className="mt-4 flex justify-center">
-                        <button className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md mx-2">
-                            Manage Tasks
-                        </button>
-                        <button className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md mx-2">
-                            View Progress
-                        </button>
+                        <CreateTodo />
+                    <div className="flex w-full max-w-5xl p-6 bg-white shadow-lg rounded-lg gap-4 dark:bg-gray-800 dark:shadow-gray-700">
+                        <Todos />
                     </div>
                 </div>
             </div>
