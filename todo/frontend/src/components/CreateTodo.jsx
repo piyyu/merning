@@ -5,14 +5,21 @@ export default function CreateTodo({onAddTodo}) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
+    if(title.length > 30 || description.length > 50) {
+        alert("title and description should not exceed 30 and 50 characters respectively");
+        setTitle("");
+        setDescription("");
+        return;
+    }
+
     const createTodo = async () => {
         if(title && description) {
             try {
                 const token = localStorage.getItem('token');
                 await axios.post("http://localhost:3000/todo", {title, description}, {headers: {token}});
-                alert("todo created successfully");
                 setTitle("");
                 setDescription("");
+                onAddTodo();
             } catch (error) {
                 alert("todo creation failed");
             }

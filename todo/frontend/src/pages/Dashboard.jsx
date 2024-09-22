@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateTodo from "../components/CreateTodo";
 import Todos from "../components/Todos";
+import axios from "axios";
 
 export default function Dashboard() {
     const navigate = useNavigate();
@@ -16,6 +17,20 @@ export default function Dashboard() {
             navigate("/");
         }
     }, [navigate]);
+
+    const fetchTodos = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await axios.get("http://localhost:3000/todos", {headers: {token}});
+            setTodos(res.data.todos);
+        } catch (error) {
+            alert("fetching todos failed");
+        }
+    }
+
+    useEffect(() => {
+        fetchTodos();
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -38,9 +53,9 @@ export default function Dashboard() {
                     <p className="text-center text-gray-600 dark:text-gray-400 text-lg">
                         Welcome <span className="text-purple-600 font-bold text-lg">{name}</span> ! Here you can manage your tasks and view your progress.
                     </p>
-                        <CreateTodo />
-                    <div className="flex w-full max-w-5xl p-6 bg-white shadow-lg rounded-lg gap-4 dark:bg-gray-800 dark:shadow-gray-700">
-                        <Todos />
+                        <CreateTodo onAddTodo={fetchTodos} />
+                    <div className="flex justify-around w-full max-w-5xl p-6 bg-white shadow-lg rounded-lg gap-4 dark:bg-gray-800 dark:shadow-gray-700">
+                        <Todos todos={todos} onAddTodo={fetchTodos} />
                     </div>
                 </div>
             </div>

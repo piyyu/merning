@@ -44,29 +44,29 @@ export default function Login() {
 
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-        <div className="flex flex-col w-full max-w-lg p-4 bg-white shadow-lg rounded-lg gap-4 dark:bg-gray-800 dark:shadow-gray-700">
+        <div className="flex flex-col w-full max-w-lg p-20 bg-white shadow-lg rounded-lg gap-4 dark:bg-gray-800 dark:shadow-gray-700">
           <input
             onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="name"
-            className="px-2 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-blue-400"
+            className="px-3 py-3 rounded-lg border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-blue-400"
           />
           <input
             onChange={(e) => setEmail(e.target.value)}
             type="text"
             placeholder="email"
-            className="px-2 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-blue-400"
+            className="px-3 py-3 rounded-lg border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-blue-400"
           />
           <input
           onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="password"
-            className="px-2 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-blue-400"
+            className="px-3 py-3 rounded-lg border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-blue-400"
           />
-          <button onClick={login} className="px-2 py-2 bg-blue-500 text-white rounded-md dark:bg-blue-600 dark:hover:bg-blue-700">
+          <button onClick={login} className="px-3 py-3 bg-blue-500 text-white rounded-md dark:bg-blue-600 dark:hover:bg-blue-700">
             login
           </button>
-          <button onClick={signup} className="px-2 py-2 bg-blue-500 text-white rounded-md dark:bg-blue-600 dark:hover:bg-blue-700">
+          <button onClick={signup} className="px-3 py-3 bg-green-500 text-white rounded-md dark:bg-green-700 dark:hover:bg-green-800">
             signup
           </button>
         </div>
