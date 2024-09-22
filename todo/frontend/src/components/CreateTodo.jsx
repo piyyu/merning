@@ -29,13 +29,13 @@ export default function CreateTodo({onAddTodo}) {
     }
     
   return (
-    <div className="flex flex-col w-full max-w-lg p-6 gap-4 ">
+    <div className="flex flex-col w-full max-w-lg p-6 gap-4">
       <input
         onChange={(e) => setTitle(e.target.value)}
         value={title}
         type="text"
         placeholder="Enter a task"
-        className="px-2 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-blue-400"
+        className="px-3 py-3 rounded-lg border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-blue-400"
       />
 
       <input
@@ -43,14 +43,12 @@ export default function CreateTodo({onAddTodo}) {
         value={description}
         type="text"
         placeholder="Enter description"
-        className="px-2 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-blue-400"
+        className="px-3 py-3 rounded-lg border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-blue-400"
       />
 
-      <div className="mt-4 flex justify-center">
-        <button onClick={createTodo} className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md mx-2">
+        <button onClick={createTodo} className="px-3 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-md">
           Create Todo
         </button>
       </div>
-    </div>
   );
 }
