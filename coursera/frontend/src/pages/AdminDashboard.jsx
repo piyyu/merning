@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function AdminDashboard() {
+export default function UserDashboard() {
     const [name, setName] = useState("");
     const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem("amdinToken");
+        const token = localStorage.getItem("adminToken");
         const name = localStorage.getItem("adminName");
         setName(name);
         if(!token){
+            alert("Please login first");
             navigate("/")
         }
         setLoading(false);
-    })
+    }, [navigate])
 
     const handleLogout = () => {
         localStorage.removeItem("adminToken");

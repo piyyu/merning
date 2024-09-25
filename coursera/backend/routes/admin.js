@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const adminRouter = Router();
+require("dotenv").config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const JWT_ADMIN_SECRET = process.env.JWT_ADMIN_SECRET;
@@ -8,11 +9,19 @@ const { AdminSchema } = require("../types");
 
 adminRouter.post("/signup", async (req, res) => {
     const parsedData = AdminSchema.safeParse(req.body);
-    console.log(parsedData)
     if (!parsedData.success) {
         res.json({
             msg: "Invalid data",
             error: parsedData.error
+        })
+        return;
+    }
+
+    const existingUser = await AdminModel.findOne({ email: req.body.email });
+
+    if (existingUser) {
+        res.json({
+            msg: "User already exists"
         })
         return;
     }
@@ -64,7 +73,8 @@ adminRouter.post("/signin", async (req, res) => {
     const token = jwt.sign({ id: response._id.toString() }, JWT_ADMIN_SECRET);
     res.json({
         msg: "Admin signed in successfully",
-        token: token
+        token: token,
+        name: response.firstName + " " + response.lastName
     })
 })
 
